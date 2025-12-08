@@ -1,0 +1,26 @@
+name: Daily Scrape
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # 毎日 朝9時(JST)に実行
+  workflow_dispatch: # 手動ボタンでも実行可能
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - run: pip install playwright && playwright install chromium
+      - run: python main.py
+      - name: Commit & Push
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs/data.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Update prices" && git push)
