@@ -237,7 +237,18 @@
 
         function populateFilterChips(items) {
             // --- Models ---
-            const models = [...new Set(items.map(i => i.model))].sort();
+            const models = [...new Set(items.map(i => i.model))];
+            models.sort((a, b) => {
+                const getNum = (s) => {
+                    if (s.includes('SE')) return -1;
+                    const match = s.match(/iPhone\s*(\d+)/);
+                    return match ? parseInt(match[1]) : 0;
+                };
+                const numA = getNum(a);
+                const numB = getNum(b);
+                if (numA !== numB) return numB - numA; // Descending
+                return a.localeCompare(b);
+            });
             models.unshift('All'); // Add All option
 
             modelContainer.innerHTML = '';
@@ -396,7 +407,7 @@
                     ${lowestBadge}
                     <div class="flex gap-4 mb-3">
                         <!-- Image -->
-                        <div class="w-16 h-20 flex-shrink-0 bg-gray-50 rounded-lg flex items-center justify-center p-1">
+                        <div class="w-20 h-auto flex-shrink-0 bg-gray-50 rounded-lg flex items-center justify-center p-1">
                             <img src="${imgUrl}" class="w-full h-full object-contain mix-blend-multiply">
                         </div>
                         <!-- Header Info -->
@@ -435,7 +446,7 @@
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-gray-50 transition-colors group";
                 tr.innerHTML = `
-                    <td class="p-4"><img src="${imgUrl}" class="w-10 h-auto"></td>
+                    <td class="p-4"><img src="${imgUrl}" class="w-10 h-10 object-contain"></td>
                     <td class="p-4 font-bold text-gray-700">${item.model}</td>
                     <td class="p-4 text-gray-500 text-sm">${item.storage}</td>
                     <td class="p-4"><span class="px-2 py-1 rounded text-xs font-bold ${carrierClass}">${carrierName}</span></td>
@@ -467,8 +478,8 @@
         }
 
         function getProductImage(model) {
-            let shortName = model.replace('iPhone ', '').trim();
-            return `https://placehold.co/100x120/eeeeee/333333/png?text=${encodeURIComponent(shortName)}`;
+            const text = model.replace(/\s+/g, '+');
+            return `https://placehold.co/150x180/f3f4f6/333333?text=${text}`;
         }
 
     </script>
