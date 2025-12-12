@@ -109,6 +109,7 @@
                     <table class="w-full text-left border-collapse">
                         <thead class="bg-gray-100 hidden md:table-header-group">
                             <tr>
+                                <th class="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider w-20">画像</th>
                                 <th class="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider">モデル</th>
                                 <th class="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider">容量</th>
                                 <th class="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider">キャリア</th>
@@ -145,8 +146,6 @@
             let carriers = ['Rakuten', 'ahamo', 'UQ mobile'];
             let selectedModel = 'All';
             let selectedStorage = 'All';
-            // let selectedColor = 'All'; // Removed
-            // let filterStock = false; // Removed
             let sortBy = 'price_asc';
             let priceMode = 'rent'; // 'rent' or 'buyout'
 
@@ -164,12 +163,11 @@
             const filterStorage = document.getElementById('filter-storage');
             const modeRentBtn = document.getElementById('mode-rent');
             const modeBuyoutBtn = document.getElementById('mode-buyout');
-            // const filterColor = document.getElementById('filter-color'); // Removed
-            // const filterStockCheckbox = document.getElementById('filter-stock'); // Removed
 
             // Table Headers (Dynamic)
-            const thPriceMain = document.querySelector('th:nth-child(5)'); // 5th column
-            const thPriceSub = document.querySelector('th:nth-child(4)');  // 4th column
+            // Indices shifted due to added Image column.
+            const thPriceSub = document.querySelector('thead tr th:nth-child(5)');
+            const thPriceMain = document.querySelector('thead tr th:nth-child(6)');
 
             // Init
             document.addEventListener('DOMContentLoaded', () => {
@@ -367,11 +365,10 @@
                     let mainLabel = '';
                     let subPriceVal = 0;
                     let subLabel = '';
-                    let subPriceNote = '';
 
                     if (priceMode === 'rent') {
                         mainPriceVal = item.price_effective_rent;
-                        mainLabel = "キャンペーン適用後実質負担";
+                        mainLabel = "実質負担";
                         subPriceVal = item.price_gross;
                         subLabel = "定価";
                     } else {
@@ -391,7 +388,7 @@
                     // If effective buyout < gross, it means there are discounts.
 
                     // Colors / Badges
-                    const carrierColor = getCarrierColor(item.carrier);
+                    const carrierClass = getCarrierColor(item.carrier);
                     const isLowestText = item.isLowest ? 'text-red-600 font-bold' : 'text-gray-900 font-bold';
                     const lowestBadge = item.isLowest ? `<span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-0.5 rounded font-bold ml-2">最安</span>` : '';
 
@@ -406,30 +403,41 @@
                         }
                     }
 
+                    // Product Image
+                    const imgUrl = getProductImage(item.model);
+
                     // --- Mobile Card Content ---
                     // Shows MAIN price prominently. SUB price smaller.
                     const mobileCard = `
                     <td class="md:hidden block p-4">
-                        <div class="flex justify-between items-start mb-2">
-                            <div>
-                                <span class="inline-block px-2 py-0.5 text-xs font-bold rounded mb-1 ${carrierColor}">${getCarrierDisplayName(item.carrier)}</span>
+                        <div class="flex gap-4 mb-2">
+                             <!-- Image Section -->
+                             <div class="flex-shrink-0">
+                                 <img src="${imgUrl}" alt="${item.model}" class="w-16 h-auto object-contain rounded">
+                             </div>
+                             
+                             <!-- Details Section -->
+                             <div class="flex-grow">
+                                <div class="flex justify-between items-start mb-1">
+                                    <span class="inline-block px-3 py-1 text-xs rounded-full shadow-sm mb-1 ${carrierClass}">${getCarrierDisplayName(item.carrier)}</span>
+                                    ${lowestBadge}
+                                </div>
                                 <h3 class="text-lg font-bold text-gray-900 leading-tight">
                                     ${item.model} 
                                     <span class="text-sm font-normal text-gray-500 ml-1">${item.storage}</span>
                                 </h3>
                             </div>
-                            ${lowestBadge}
                         </div>
                         
                         <!-- Main Price -->
-                        <div class="flex items-baseline gap-2 mb-1">
+                        <div class="flex items-baseline gap-2 mb-1 ml-20">
                             <span class="text-sm text-gray-500">${mainLabel}:</span>
                             <span class="text-2xl ${isLowestText}">¥${mainPriceStr}</span>
                             ${(priceMode === 'rent') ? rentExemptionBadge : ''}
                         </div>
                         
                         <!-- Sub Prices & Info -->
-                        <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-sm text-gray-600 mb-4">
+                        <div class="grid grid-cols-2 gap-x-4 gap-y-1 text-sm text-gray-600 mb-4 ml-20">
                             <div class="flex justify-between border-b border-gray-100 pb-1">
                                 <span>${subLabel}:</span>
                                 <span>¥${subPriceStr}</span>
@@ -447,9 +455,9 @@
                     `;
 
                     // --- Desktop Table Content ---
-                    // Columns: Model, Storage, Carrier, SubPrice(Col4), MainPrice(Col5), Button
+                    // Columns: Image, Model, Storage, Carrier, SubPrice(Col4), MainPrice(Col5), Button
 
-                    const col4Class = 'text-gray-600 text-sm';
+                    const grossDisplayClass = priceMode === 'buyout' ? isLowestText + " text-base" : 'text-gray-600 text-sm';
                     const col5Class = isLowestText + " text-base";
 
                     // Col4 Content (Sub Price)
@@ -480,15 +488,18 @@
 
                     // Reconstruct columns
                     const desktopColumns = `
+                    <td class="hidden md:table-cell p-4">
+                        <img src="${imgUrl}" alt="${item.model}" class="w-12 h-auto object-contain">
+                    </td>
                     <td class="hidden md:table-cell p-4 font-medium">${item.model}</td>
                     <td class="hidden md:table-cell p-4 text-gray-600">${item.storage}</td>
                     <td class="hidden md:table-cell p-4">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${carrierColor}">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs ${carrierClass}">
                             ${getCarrierDisplayName(item.carrier)}
                         </span>
                     </td>
                     <td class="hidden md:table-cell p-4 text-right">
-                         <span class="${col4Class}">${col4Content}</span>
+                         <span class="text-gray-600 text-sm">${col4Content}</span>
                     </td>
                     <td class="hidden md:table-cell p-4 text-right">
                         <div>
@@ -508,15 +519,21 @@
             }
 
             function getCarrierColor(carrier) {
-                if (carrier === 'Rakuten') return 'bg-pink-100 text-pink-800';
-                if (carrier === 'ahamo') return 'bg-green-100 text-green-800';
-                if (carrier === 'UQ mobile') return 'bg-indigo-100 text-indigo-800';
-                return 'bg-gray-100 text-gray-800';
+                if (carrier === 'Rakuten') return 'bg-[#BF0087] text-white font-bold';
+                if (carrier === 'ahamo') return 'bg-[#28C842] text-white font-bold';
+                if (carrier === 'UQ mobile') return 'bg-[#E60012] text-white font-bold';
+                return 'bg-gray-500 text-white font-bold';
             }
 
             function getCarrierDisplayName(carrier) {
                 if (carrier === 'Rakuten') return '楽天モバイル';
                 return carrier;
+            }
+
+            function getProductImage(model) {
+                // Shorten model name for URL
+                let shortName = model.replace('iPhone ', '').trim();
+                return `https://placehold.co/100x120/eeeeee/333333/png?text=${encodeURIComponent(shortName)}`;
             }
         </script>
 </body>
