@@ -1,4 +1,3 @@
-```javascript
 // Config & Base URL
 const config = window.iPhoneMonitorConfig || { baseUrl: './' };
 // Ensure baseUrl ends with /
@@ -209,7 +208,7 @@ function resetDisplayCount() {
 async function fetchData() {
     try {
         const response = await fetch(BASE_URL + 'data.json');
-        if (!response.ok) throw new Error(`HTTP error! status: ${ response.status } `);
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status} `);
         const data = await response.json();
 
         if (updatedAtEl) updatedAtEl.textContent = data.updated_at || '不明';
@@ -290,11 +289,10 @@ function populateFilterChips(items) {
 }
 
 function getChipClass(isSelected) {
-    return `whitespace - nowrap px - 4 py - 1.5 rounded - full text - sm font - bold transition - all border ${
-    isSelected
-        ? 'bg-gray-900 text-white border-gray-900 shadow-md transform scale-105'
-        : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
-} `;
+    return `whitespace - nowrap px - 4 py - 1.5 rounded - full text - sm font - bold transition - all border ${isSelected
+            ? 'bg-gray-900 text-white border-gray-900 shadow-md transform scale-105'
+            : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
+        } `;
 }
 
 function updateChipStyles(container, selectedValue, allLabel) {
@@ -309,7 +307,7 @@ function updateChipStyles(container, selectedValue, allLabel) {
 function markLowestPrices(items) {
     const groups = {};
     items.forEach(item => {
-        const key = `${ item.model } -${ item.storage } `;
+        const key = `${item.model} -${item.storage} `;
         if (!groups[key]) groups[key] = [];
         groups[key].push(item);
     });
@@ -377,7 +375,7 @@ function render() { // Filter & Sort
             return sortOrder === 'price_asc' ? valA - valB : valB - valA;
         }
     });
-    
+
     // Store current filtered data for Load More reference
     // Note: We might want a global variable for this if we were strictly following the "Step 2C" of the prompt,
     // but simply using 'filtered' here works because this function re-runs on filter changes.
@@ -391,7 +389,7 @@ function render() { // Filter & Sort
     if (currentFilteredData.length === 0) {
         if (productContainerEl) productContainerEl.classList.add('hidden');
         if (noResultsEl) noResultsEl.classList.remove('hidden');
-        if (loadMoreBtn) loadMoreBtn.classList.add('hidden'); 
+        if (loadMoreBtn) loadMoreBtn.classList.add('hidden');
         return;
     } else {
         if (productContainerEl) productContainerEl.classList.remove('hidden');
@@ -403,7 +401,7 @@ function render() { // Filter & Sort
     if (loadMoreBtn) {
         if (hasMore) {
             loadMoreBtn.classList.remove('hidden');
-            loadMoreBtn.textContent = `もっと見る（あと${ currentFilteredData.length - displayedCount } 件）`;
+            loadMoreBtn.textContent = `もっと見る（あと${currentFilteredData.length - displayedCount} 件）`;
         } else {
             loadMoreBtn.classList.add('hidden');
         }
@@ -413,7 +411,7 @@ function render() { // Filter & Sort
     const visibleItems = currentFilteredData.slice(0, displayedCount);
 
     visibleItems.forEach(item => {
-        const imgUrl = getProductImage(item.model); 
+        const imgUrl = getProductImage(item.model);
         const carrierName = getCarrierDisplayName(item.carrier);
         const carrierLogo = getCarrierLogoPath(item.carrier);
         const isLowest = item.isLowest;
@@ -433,7 +431,7 @@ function render() { // Filter & Sort
 
         const cardHTML = `
     < div class="flex flex-col gap-3 p-5 border border-gray-100 rounded-2xl bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 relative overflow-hidden group" >
-        ${ lowestBadge }
+        ${lowestBadge}
             <div class="flex gap-4 items-start">
                 <div class="w-20 h-24 flex-shrink-0 bg-gray-50 rounded-xl flex items-center justify-center p-2 group-hover:bg-blue-50/50 transition-colors">
                     <img src="${imgUrl}" class="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110">
