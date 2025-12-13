@@ -10,8 +10,7 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background-color: #f8fafc;
-            /* slate-50 equivalent hex for specificity if needed, but Tailwind class on body is better */
+            scroll-behavior: smooth;
         }
 
         /* Hide scrollbar for Chrome, Safari and Opera */
@@ -29,18 +28,43 @@
     </style>
 </head>
 
-<body class="text-gray-800 pb-20 md:pb-8 bg-slate-50 font-sans antialiased">
+<body class="bg-slate-50 text-gray-800 font-sans antialiased">
 
-    <div id="app" class="max-w-7xl mx-auto">
+    <!-- Hero Section -->
+    <section class="relative bg-gradient-to-br from-gray-900 to-black text-white py-24 md:py-32 px-4 overflow-hidden">
+        <!-- Background Elements -->
+        <div class="absolute top-0 left-0 w-full h-full overflow-hidden opacity-20 pointer-events-none">
+            <div class="absolute -top-24 -right-24 w-96 h-96 bg-blue-600 rounded-full blur-3xl"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-purple-600 rounded-full blur-3xl"></div>
+        </div>
 
-        <!-- Sticky Header -->
-        <header class="sticky top-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-200 shadow-sm">
-            <div class="max-w-7xl mx-auto px-4 py-3 flex justify-end items-center">
-                <!-- (Update Info removed from header) -->
-            </div>
+        <div class="max-w-7xl mx-auto text-center relative z-10">
+            <h1 class="text-4xl md:text-6xl font-black mb-4 tracking-tight leading-tight">
+                iPhone最安値チェッカー
+            </h1>
+            <p class="text-lg md:text-xl text-gray-400 mb-10 max-w-2xl mx-auto font-medium">
+                楽天モバイル・ahamo・UQ mobile。<br class="md:hidden">今一番お得なキャリアと機種が一目でわかる。
+            </p>
+            <a href="#monitor-app"
+                class="inline-flex items-center gap-2 bg-white text-gray-900 font-bold py-4 px-10 rounded-full hover:bg-gray-100 transition-transform hover:scale-105 shadow-xl shadow-blue-900/20 active:scale-95 text-lg">
+                今すぐ価格を見る
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Main Content (Tool Embed) -->
+    <main id="monitor-app" class="max-w-5xl mx-auto py-16 px-4">
+
+        <!-- Toggle & Header -->
+        <div class="mb-10 text-center space-y-6">
+            <h2 class="text-2xl font-bold text-gray-900">価格比較ツール</h2>
 
             <!-- Price Mode Toggle (Apple Sliding Style) -->
-            <div class="px-4 pb-4 text-center">
+            <div class="inline-block">
                 <div class="bg-[#e5e7eb] p-1 rounded-full inline-flex relative w-[340px] h-[40px] items-center">
                     <!-- Sliding Background Pill -->
                     <div id="toggle-bg"
@@ -57,62 +81,57 @@
                     </button>
                 </div>
             </div>
-        </header>
+        </div>
 
-        <!-- Main Content -->
-        <main class="w-full px-4 pt-6">
+        <!-- Filters Section -->
+        <div class="mb-8 space-y-6 bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
 
-            <!-- Filters Section (Chips) -->
-            <div class="mb-8 space-y-4">
-
-                <!-- Carriers Filters -->
-                <div class="space-y-1">
-                    <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">キャリア</h2>
-                    <div class="flex flex-wrap gap-3" id="carrier-filters">
-                        <!-- Checkboxes styled as logo tiles -->
-                        <label class="cursor-pointer select-none group">
-                            <input type="checkbox" class="filter-carrier peer hidden" value="Rakuten" checked>
-                            <div
-                                class="h-12 px-4 rounded-xl border-2 border-transparent bg-white shadow-sm flex items-center justify-center transition-all opacity-50 grayscale hover:opacity-75 peer-checked:opacity-100 peer-checked:grayscale-0 peer-checked:border-pink-500 peer-checked:shadow-md">
-                                <img src="./images/logo_rakuten.png" alt="楽天モバイル" class="h-6 w-auto object-contain">
-                            </div>
-                        </label>
-                        <label class="cursor-pointer select-none group">
-                            <input type="checkbox" class="filter-carrier peer hidden" value="ahamo" checked>
-                            <div
-                                class="h-12 px-4 rounded-xl border-2 border-transparent bg-white shadow-sm flex items-center justify-center transition-all opacity-50 grayscale hover:opacity-75 peer-checked:opacity-100 peer-checked:grayscale-0 peer-checked:border-green-500 peer-checked:shadow-md">
-                                <img src="./images/logo_ahamo.png" alt="ahamo" class="h-6 w-auto object-contain">
-                            </div>
-                        </label>
-                        <label class="cursor-pointer select-none group">
-                            <input type="checkbox" class="filter-carrier peer hidden" value="UQ mobile" checked>
-                            <div
-                                class="h-12 px-4 rounded-xl border-2 border-transparent bg-white shadow-sm flex items-center justify-center transition-all opacity-50 grayscale hover:opacity-75 peer-checked:opacity-100 peer-checked:grayscale-0 peer-checked:border-blue-500 peer-checked:shadow-md">
-                                <img src="./images/logo_uq.png" alt="UQ mobile" class="h-6 w-auto object-contain">
-                            </div>
-                        </label>
-                    </div>
+            <!-- Carriers Filters -->
+            <div class="space-y-2">
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">キャリア</h3>
+                <div class="flex flex-wrap gap-3" id="carrier-filters">
+                    <label class="cursor-pointer select-none group">
+                        <input type="checkbox" class="filter-carrier peer hidden" value="Rakuten" checked>
+                        <div
+                            class="h-12 px-4 rounded-xl border-2 border-transparent bg-gray-50 flex items-center justify-center transition-all opacity-50 grayscale hover:opacity-75 peer-checked:opacity-100 peer-checked:grayscale-0 peer-checked:border-pink-500 peer-checked:bg-white peer-checked:shadow-md">
+                            <img src="./images/logo_rakuten.png" alt="楽天モバイル" class="h-6 w-auto object-contain">
+                        </div>
+                    </label>
+                    <label class="cursor-pointer select-none group">
+                        <input type="checkbox" class="filter-carrier peer hidden" value="ahamo" checked>
+                        <div
+                            class="h-12 px-4 rounded-xl border-2 border-transparent bg-gray-50 flex items-center justify-center transition-all opacity-50 grayscale hover:opacity-75 peer-checked:opacity-100 peer-checked:grayscale-0 peer-checked:border-green-500 peer-checked:bg-white peer-checked:shadow-md">
+                            <img src="./images/logo_ahamo.png" alt="ahamo" class="h-6 w-auto object-contain">
+                        </div>
+                    </label>
+                    <label class="cursor-pointer select-none group">
+                        <input type="checkbox" class="filter-carrier peer hidden" value="UQ mobile" checked>
+                        <div
+                            class="h-12 px-4 rounded-xl border-2 border-transparent bg-gray-50 flex items-center justify-center transition-all opacity-50 grayscale hover:opacity-75 peer-checked:opacity-100 peer-checked:grayscale-0 peer-checked:border-blue-500 peer-checked:bg-white peer-checked:shadow-md">
+                            <img src="./images/logo_uq.png" alt="UQ mobile" class="h-6 w-auto object-contain">
+                        </div>
+                    </label>
                 </div>
+            </div>
 
-                <!-- Models Chips -->
-                <div class="space-y-1">
-                    <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">機種</h2>
-                    <div class="flex overflow-x-auto gap-2 pb-2 no-scrollbar" id="filter-model-container">
-                        <!-- Populated by JS -->
-                    </div>
+            <!-- Models Chips -->
+            <div class="space-y-2">
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">機種</h3>
+                <div class="flex overflow-x-auto gap-2 pb-2 no-scrollbar" id="filter-model-container">
+                    <!-- Populated by JS -->
                 </div>
+            </div>
 
-                <!-- Storage Chips -->
-                <div class="space-y-1">
-                    <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">ストレージ容量</h2>
-                    <div class="flex overflow-x-auto gap-2 pb-2 no-scrollbar" id="filter-storage-container">
-                        <!-- Populated by JS -->
-                    </div>
+            <!-- Storage Chips -->
+            <div class="space-y-2">
+                <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">ストレージ容量</h3>
+                <div class="flex overflow-x-auto gap-2 pb-2 no-scrollbar" id="filter-storage-container">
+                    <!-- Populated by JS -->
                 </div>
             </div>
 
             <!-- Sort Menu -->
-            <div class="flex justify-end mb-6">
+            <div class="flex justify-end pt-2 border-t border-gray-100">
                 <div class="relative">
                     <select id="sort-select"
                         class="appearance-none bg-white border border-gray-200 text-gray-700 py-2 pl-4 pr-10 rounded-lg shadow-sm text-sm font-bold focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent cursor-pointer">
@@ -129,374 +148,90 @@
                 </div>
             </div>
 
-            <!-- Error Message -->
-            <div id="error-message"
-                class="hidden bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6 text-sm">
-                <strong class="font-bold">エラー:</strong> <span id="error-text">データの読み込みに失敗しました。</span>
+        </div>
+
+        <!-- Error Message -->
+        <div id="error-message"
+            class="hidden bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6 text-sm">
+            <strong class="font-bold">エラー:</strong> <span id="error-text">データの読み込みに失敗しました。</span>
+        </div>
+
+        <!-- Loading -->
+        <div id="loading" class="text-center py-20">
+            <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900 mx-auto"></div>
+        </div>
+
+        <!-- Product Grid/List -->
+        <div id="product-container" class="hidden">
+            <div id="mobile-list" class="grid grid-cols-1 gap-6">
+                <!-- Javascript injects cards here -->
             </div>
 
-            <!-- Loading -->
-            <div id="loading" class="text-center py-20">
-                <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900 mx-auto"></div>
+            <!-- No Results -->
+            <div id="no-results" class="hidden text-center py-20">
+                <p class="text-gray-500 font-bold mb-2">条件に一致するiPhoneが見つかりませんでした</p>
+                <p class="text-gray-400 text-sm">フィルターを変更して再度お試しください</p>
             </div>
+        </div>
 
-            <!-- Product Grid/List -->
-            <div id="product-container" class="hidden">
+    </main>
 
-                <!-- Product List (Responsive Grid) -->
-                <div id="mobile-list" class="grid grid-cols-1 gap-6">
-                    <!-- Javascript injects cards here -->
-                </div>
-
-                <!-- No Results -->
-                <div id="no-results" class="hidden text-center py-20">
-                    <p class="text-gray-500 font-bold mb-2">条件に一致するiPhoneが見つかりませんでした</p>
-                    <p class="text-gray-400 text-sm">フィルターを変更して再度お試しください</p>
-                </div>
-
-            </div>
-
-            <!-- Update Info (Footer) -->
-            <div class="mt-12 text-center pb-8">
-                <p class="text-xs text-gray-400">
-                    最終更新: <span id="updated-at" class="font-medium">更新中...</span>
-                </p>
-            </div>
-        </main>
-
-    </div>
-
-    <script>
-        // State
-        let allData = [];
-        let carriers = ['Rakuten', 'ahamo', 'UQ mobile'];
-        let selectedModel = 'All';
-        let selectedStorage = 'All';
-        let priceMode = 'rent'; // 'rent' or 'buyout'
-        let sortOrder = 'price_asc'; // 'price_asc', 'price_desc', 'model_newest'
-
-        // DOM Elements
-        const updatedAtEl = document.getElementById('updated-at');
-        const errorMessageEl = document.getElementById('error-message');
-        const errorTextEl = document.getElementById('error-text');
-        const loadingEl = document.getElementById('loading');
-        const productContainerEl = document.getElementById('product-container');
-        const mobileListEl = document.getElementById('mobile-list');
-        const noResultsEl = document.getElementById('no-results');
-
-        const carrierCheckboxes = document.querySelectorAll('.filter-carrier');
-        const modelContainer = document.getElementById('filter-model-container');
-        const storageContainer = document.getElementById('filter-storage-container');
-
-        const modeRentBtn = document.getElementById('mode-rent');
-        const modeBuyoutBtn = document.getElementById('mode-buyout');
-        const sortSelect = document.getElementById('sort-select');
-
-        const thPriceDisplay = document.getElementById('th-price-display');
-
-        // Init
-        document.addEventListener('DOMContentLoaded', () => {
-            fetchData();
-            setupEventListeners();
-        });
-
-        function setupEventListeners() {
-            // Carrier Filter
-            carrierCheckboxes.forEach(cb => {
-                cb.addEventListener('change', () => {
-                    carriers = Array.from(carrierCheckboxes)
-                        .filter(c => c.checked)
-                        .map(c => c.value);
-                    render();
-                });
-            });
-
-            // Sort Change
-            sortSelect.addEventListener('change', (e) => {
-                sortOrder = e.target.value;
-                render();
-            });
-        }
-
-        async function fetchData() {
-            try {
-                const response = await fetch('./data.json');
-                if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-                const data = await response.json();
-
-                updatedAtEl.textContent = data.updated_at || '不明';
-                allData = data.items;
-
-                populateFilterChips(allData);
-                markLowestPrices(allData);
-
-                loadingEl.classList.add('hidden');
-                productContainerEl.classList.remove('hidden');
-                render();
-
-            } catch (err) {
-                console.error(err);
-                loadingEl.classList.add('hidden');
-                errorMessageEl.classList.remove('hidden');
-                errorTextEl.textContent = err.message;
-            }
-        }
-
-        function populateFilterChips(items) {
-            // --- Models ---
-            const models = [...new Set(items.map(i => i.model))];
-            models.sort((a, b) => {
-                const getNum = (s) => {
-                    if (s.includes('SE')) return -1;
-                    const match = s.match(/iPhone\s*(\d+)/);
-                    return match ? parseInt(match[1]) : 0;
-                };
-                const numA = getNum(a);
-                const numB = getNum(b);
-                if (numA !== numB) return numB - numA; // Descending
-                return a.localeCompare(b);
-            });
-            models.unshift('All'); // Add All option
-
-            modelContainer.innerHTML = '';
-            models.forEach(m => {
-                const btn = document.createElement('button');
-                btn.textContent = (m === 'All') ? '全て' : m.replace('iPhone ', '');
-                btn.className = `whitespace-nowrap px-4 py-1.5 rounded-full text-sm font-bold transition-all border ${m === selectedModel
-                    ? 'bg-gray-900 text-white border-gray-900 shadow-md'
-                    : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
-                    }`;
-                btn.onclick = () => {
-                    selectedModel = m;
-                    updateChipStyles(modelContainer, m, '全て');
-                    render();
-                };
-                modelContainer.appendChild(btn);
-            });
-
-            // --- Storage ---
-            // Sort logic
-            const storages = [...new Set(items.map(i => i.storage))];
-            storages.sort((a, b) => {
-                const parse = (s) => (s.includes('TB') ? parseInt(s) * 1024 : parseInt(s) || 9999);
-                return parse(a) - parse(b);
-            });
-            storages.unshift('All');
-
-            storageContainer.innerHTML = '';
-            storages.forEach(s => {
-                const btn = document.createElement('button');
-                btn.textContent = (s === 'All') ? '全て' : s;
-                btn.className = `whitespace-nowrap px-4 py-1.5 rounded-full text-sm font-bold transition-all border ${s === selectedStorage
-                    ? 'bg-gray-900 text-white border-gray-900 shadow-md'
-                    : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
-                    }`;
-                btn.onclick = () => {
-                    selectedStorage = s;
-                    updateChipStyles(storageContainer, s, '全て');
-                    render();
-                };
-                storageContainer.appendChild(btn);
-            });
-        }
-
-        function updateChipStyles(container, selectedValue, allLabel) {
-            Array.from(container.children).forEach(btn => {
-                const label = btn.textContent;
-                // Simple check against label or 'iPhone ' prefix logic
-                const isSelected = (label === selectedValue.replace('iPhone ', '')) || (label === allLabel && selectedValue === 'All') || (label === selectedValue);
-
-                btn.className = `whitespace-nowrap px-4 py-1.5 rounded-full text-sm font-bold transition-all border ${isSelected
-                    ? 'bg-gray-900 text-white border-gray-900 shadow-md transform scale-105'
-                    : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
-                    }`;
-            });
-        }
-
-        function markLowestPrices(items) {
-            // Group by Model + Storage
-            const groups = {};
-            items.forEach(item => {
-                const key = `${item.model}-${item.storage}`;
-                if (!groups[key]) groups[key] = [];
-                groups[key].push(item);
-            });
-
-            Object.values(groups).forEach(group => {
-                if (group.length === 0) return;
-                if (group.length === 0) return;
-                const minPrice = Math.min(...group.map(i => priceMode === 'rent' ? i.price_effective_rent : i.price_gross));
-                group.forEach(item => {
-                    const price = priceMode === 'rent' ? item.price_effective_rent : item.price_gross;
-                    item.isLowest = (price === minPrice);
-                });
-            });
-        }
-
-        function setPriceMode(mode) {
-            priceMode = mode;
-
-            // Toggle Animation & Text Colors
-            const toggleBg = document.getElementById('toggle-bg');
-            const modeRentBtn = document.getElementById('mode-rent');
-            const modeBuyoutBtn = document.getElementById('mode-buyout');
-
-            if (mode === 'rent') {
-                // Slide Left
-                toggleBg.classList.remove('translate-x-full');
-
-                // Text Colors
-                modeRentBtn.classList.remove('text-gray-500');
-                modeRentBtn.classList.add('text-black');
-
-                modeBuyoutBtn.classList.remove('text-black');
-                modeBuyoutBtn.classList.add('text-gray-500');
-
-                if (thPriceDisplay) thPriceDisplay.textContent = "実質負担額";
-            } else {
-                // Slide Right
-                toggleBg.classList.add('translate-x-full');
-
-                // Text Colors
-                modeRentBtn.classList.remove('text-black');
-                modeRentBtn.classList.add('text-gray-500');
-
-                modeBuyoutBtn.classList.remove('text-gray-500');
-                modeBuyoutBtn.classList.add('text-black');
-
-                if (thPriceDisplay) thPriceDisplay.textContent = "一括価格";
-            }
-
-            markLowestPrices(allData);
-            render();
-        }
-
-        function render() {
-            // Filter
-            let filtered = allData.filter(item => {
-                if (!carriers.includes(item.carrier)) return false;
-                if (selectedModel !== 'All' && item.model !== selectedModel) return false;
-                if (selectedStorage !== 'All' && item.storage !== selectedStorage) return false;
-                return true;
-            });
-
-            // Sort
-            filtered.sort((a, b) => {
-                if (sortOrder === 'model_newest') {
-                    // Extract model number for sorting (iPhone 16 > 15 ...) - SE last
-                    const getNum = (s) => {
-                        if (s.includes('SE')) return -1;
-                        const match = s.match(/iPhone\s*(\d+)/);
-                        return match ? parseInt(match[1]) : 0;
-                    };
-                    const numA = getNum(a.model);
-                    const numB = getNum(b.model);
-                    if (numA !== numB) return numB - numA; // Descending
-                    return a.model.localeCompare(b.model);
-                } else {
-                    // Price Sort
-                    const valA = priceMode === 'rent' ? a.price_effective_rent : a.price_gross;
-                    const valB = priceMode === 'rent' ? b.price_effective_rent : b.price_gross;
-                    return sortOrder === 'price_asc' ? valA - valB : valB - valA;
-                }
-            });
-
-            // Clear
-            mobileListEl.innerHTML = '';
-
-            if (filtered.length === 0) {
-                productContainerEl.classList.add('hidden');
-                noResultsEl.classList.remove('hidden');
-                return;
-            } else {
-                productContainerEl.classList.remove('hidden');
-                noResultsEl.classList.add('hidden');
-            }
-
-            filtered.forEach(item => {
-                const imgUrl = getProductImage(item.model);
-                // const carrierClass = getCarrierColor(item.carrier); // Removed
-                const carrierName = getCarrierDisplayName(item.carrier);
-                const isLowest = item.isLowest;
-
-                // Values
-                let displayPrice, displayLabel, unitBadge = '';
-                if (priceMode === 'rent') {
-                    displayPrice = item.price_effective_rent;
-                    displayLabel = '実質負担';
-                    if (item.program_exemption > 0) unitBadge = '返却P';
-                } else {
-                    displayPrice = item.price_gross;
-                    displayLabel = '一括価格';
-                    // if (item.points_awarded > 0) unitBadge = 'Pt還元含'; // Usually for effective buyout, but user asked for Gross. Keeping simple.
-                }
-
-                const fmtPrice = displayPrice.toLocaleString();
-
-                // --- Mobile Card (Premium Design) ---
-                const lowestBadge = isLowest ? `<div class="absolute top-2 left-2 bg-yellow-400 text-yellow-900 text-[10px] font-black px-2 py-0.5 rounded shadow-sm z-10">最安</div>` : '';
-
-                const cardHTML = `
-                <div class="flex flex-col gap-3 p-5 border border-gray-100 rounded-2xl bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-200 transition-all duration-300 relative overflow-hidden group">
-                    ${lowestBadge}
-                    <div class="flex gap-4 items-start">
-                        <!-- Image -->
-                        <div class="w-20 h-24 flex-shrink-0 bg-gray-50 rounded-xl flex items-center justify-center p-2 group-hover:bg-blue-50/50 transition-colors">
-                            <img src="${imgUrl}" class="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110">
-                        </div>
-                        <!-- Header Info & Price -->
-                        <div class="flex-grow min-w-0">
-                            <div class="flex justify-between items-start mb-2">
-                                <div>
-                                    <h3 class="text-lg font-bold text-gray-900 leading-tight tracking-tight">${item.model}</h3>
-                                    <div class="flex flex-wrap gap-1 mt-1">
-                                         <span class="text-[10px] font-medium text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">${item.storage}</span>
-                                    </div>
-                                </div>
-                                <img src="${getCarrierLogoPath(item.carrier)}" alt="${carrierName}" class="h-6 w-auto object-contain object-right opacity-80 group-hover:opacity-100 transition-opacity">
-                            </div>
-                            
-                            <!-- Price Block -->
-                            <div class="mt-3">
-                                <div class="flex items-baseline gap-1">
-                                    <span class="text-xs text-gray-400 font-bold">${displayLabel}</span>
-                                    <span class="text-3xl font-black text-slate-800 tracking-tighter font-sans">¥${fmtPrice}</span>
-                                </div>
-                                ${unitBadge ? `<div class="mt-1"><span class="text-[10px] text-red-600 bg-red-50 border border-red-100 px-1.5 py-0.5 rounded font-bold">${unitBadge}</span></div>` : ''}
-                            </div>
-                        </div>
+    <!-- Feature Section -->
+    <section class="bg-white py-16 border-t border-gray-100">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-6 bg-slate-50 rounded-2xl text-center">
+                    <div
+                        class="w-12 h-12 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
                     </div>
-                
-                    <!-- Action -->
-                    <a href="${item.url}" target="_blank" class="block w-full bg-slate-900 text-white text-center text-sm font-bold py-3 rounded-xl shadow-lg shadow-slate-200 hover:bg-slate-800 hover:shadow-xl transition active:scale-95 flex items-center justify-center gap-2 group/btn">
-                        公式サイトで見る
-                        <svg class="w-4 h-4 transition-transform group-hover/btn:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
-                    </a>
+                    <h3 class="font-bold text-lg mb-2">3キャリア対応</h3>
+                    <p class="text-sm text-gray-500">楽天モバイル、ahamo、UQ mobileの価格を一覧で比較できます。</p>
                 </div>
-                `;
-                mobileListEl.insertAdjacentHTML('beforeend', cardHTML);
+                <div class="p-6 bg-slate-50 rounded-2xl text-center">
+                    <div
+                        class="w-12 h-12 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">最新データを自動取得</h3>
+                    <p class="text-sm text-gray-500">定期的に公式サイトの情報を確認し、常に最新の価格を表示します。</p>
+                </div>
+                <div class="p-6 bg-slate-50 rounded-2xl text-center">
+                    <div
+                        class="w-12 h-12 bg-purple-100 text-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M3 6l3 1m0 0l-3 9a5.002 5.002 0 006.001 0M6 7l3 9M6 7l6-2m6 2l3-1m-3 1l-3 9a5.002 5.002 0 006.001 0M18 7l3 9m-3-9l-6-2m0-2v2m0 16V5m0 16H9m3 0h3">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3 class="font-bold text-lg mb-2">一括・実質どちらも</h3>
+                    <p class="text-sm text-gray-500">2年返却の実質負担額と、一括購入価格の両方を比較可能です。</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            });
-        }
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="text-sm text-gray-400 mb-4">
+                最終更新: <span id="updated-at" class="font-medium">更新中...</span>
+            </p>
+            <p class="text-xs text-gray-600">
+                &copy; 2024 iPhone Monitor. All rights reserved. Prices are subject to change.
+            </p>
+        </div>
+    </footer>
 
-        function getCarrierLogoPath(carrier) {
-            if (carrier === 'Rakuten') return './images/logo_rakuten.png';
-            if (carrier === 'ahamo') return './images/logo_ahamo.png';
-            if (carrier === 'UQ mobile') return './images/logo_uq.png';
-            return '';
-        }
-
-        function getCarrierDisplayName(carrier) {
-            if (carrier === 'Rakuten') return '楽天モバイル';
-            return carrier;
-        }
-
-        function getProductImage(model) {
-            const text = model.replace(/\s+/g, '+');
-            return `https://placehold.co/150x180/f3f4f6/333333?text=${text}`;
-        }
-
-    </script>
+    <!-- Scripts -->
+    <script src="js/app.js"></script>
 </body>
 
 </html>
