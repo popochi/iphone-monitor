@@ -437,14 +437,14 @@ function render() { // Filter & Sort
                     <img src="${imgUrl}" class="w-full h-full object-contain mix-blend-multiply transition-transform duration-500 group-hover:scale-110">
                 </div>
                 <div class="flex-grow min-w-0">
-                    <div class="flex justify-between items-start mb-2">
+                    <div class="flex flex-col gap-1 items-start mb-2">
                         <div>
-                            <h3 class="text-lg font-bold text-gray-900 leading-tight tracking-tight">${item.model}</h3>
+                            <h3 class="text-lg font-bold text-gray-900 leading-tight">${item.model}</h3>
                             <div class="flex flex-wrap gap-1 mt-1">
                                     <span class="text-[10px] font-medium text-gray-500 bg-gray-100 px-1.5 py-0.5 rounded">${item.storage}</span>
                             </div>
                         </div>
-                        <img src="${carrierLogo}" alt="${carrierName}" class="h-6 w-auto object-contain object-right opacity-80 group-hover:opacity-100 transition-opacity">
+                        <img src="${carrierLogo}" alt="${carrierName}" class="h-5 object-contain object-left mt-1 opacity-80 group-hover:opacity-100 transition-opacity">
                     </div>
                     <div class="mt-3">
                         <div class="flex items-baseline gap-1">
