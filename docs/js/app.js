@@ -48,7 +48,7 @@ function renderAppStructure() {
     const imgUQ = BASE_URL + 'images/logo_uq.png';
 
     appContainer.innerHTML = `
-    < !--Header / Toggle-- >
+        <!-- Header / Toggle -->
         <div class="mb-10 text-center space-y-6">
             <h2 class="text-2xl font-bold text-gray-900">価格比較ツール</h2>
             <!-- Price Mode Toggle -->
@@ -65,7 +65,7 @@ function renderAppStructure() {
             </div>
         </div>
 
-        <!--Filters Section-- >
+        <!-- Filters Section -->
         <div class="mb-8 space-y-6 bg-white p-6 rounded-3xl border border-gray-100 shadow-sm">
             <!-- Carriers -->
             <div class="space-y-2">
@@ -121,33 +121,33 @@ function renderAppStructure() {
             </div>
         </div>
 
-        <!--Error -->
+        <!-- Error -->
         <div id="error-message" class="hidden bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-lg mb-6 text-sm">
             <strong class="font-bold">エラー:</strong> <span id="error-text">データの読み込みに失敗しました。</span>
         </div>
 
-        <!--Loading -->
+        <!-- Loading -->
         <div id="loading" class="text-center py-20">
             <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-gray-900 mx-auto"></div>
         </div>
 
-        <!--Product Grid-- >
-    <div id="product-container" class="hidden">
-        <div id="mobile-list" class="grid grid-cols-1 gap-6"></div>
+        <!-- Product Grid -->
+        <div id="product-container" class="hidden">
+            <div id="mobile-list" class="grid grid-cols-1 gap-6"></div>
+            
+            <!-- Load More Button -->
+            <div class="mt-8 text-center">
+                <button id="load-more-btn" class="hidden w-full md:w-auto md:px-12 py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-colors shadow-sm active:scale-95">
+                    もっと見る (+10件)
+                </button>
+            </div>
 
-        <!-- Load More Button -->
-        <div class="mt-8 text-center">
-            <button id="load-more-btn" class="hidden w-full md:w-auto md:px-12 py-3 bg-gray-100 text-gray-700 font-bold rounded-xl hover:bg-gray-200 transition-colors shadow-sm active:scale-95">
-                もっと見る (+10件)
-            </button>
+            <div id="no-results" class="hidden text-center py-20">
+                <p class="text-gray-500 font-bold mb-2">条件に一致するiPhoneが見つかりませんでした</p>
+                <p class="text-gray-400 text-sm">フィルターを変更して再度お試しください</p>
+            </div>
         </div>
-
-        <div id="no-results" class="hidden text-center py-20">
-            <p class="text-gray-500 font-bold mb-2">条件に一致するiPhoneが見つかりませんでした</p>
-            <p class="text-gray-400 text-sm">フィルターを変更して再度お試しください</p>
-        </div>
-    </div>
-`;
+    `;
 }
 
 function grabElements() {
@@ -290,8 +290,8 @@ function populateFilterChips(items) {
 
 function getChipClass(isSelected) {
     return `whitespace - nowrap px - 4 py - 1.5 rounded - full text - sm font - bold transition - all border ${isSelected
-            ? 'bg-gray-900 text-white border-gray-900 shadow-md transform scale-105'
-            : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
+        ? 'bg-gray-900 text-white border-gray-900 shadow-md transform scale-105'
+        : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
         } `;
 }
 
