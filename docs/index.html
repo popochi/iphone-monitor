@@ -140,10 +140,8 @@
                                 <th class="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider">機種</th>
                                 <th class="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider">容量</th>
                                 <th class="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider">キャリア</th>
-                                <th class="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">定価
-                                    (一括)</th>
-                                <th class="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right">
-                                    実質負担額</th>
+                                <th class="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-right"
+                                    id="th-price-display">実質負担額</th>
                                 <th class="p-4 text-xs font-bold text-gray-500 uppercase tracking-wider text-center">リンク
                                 </th>
                             </tr>
@@ -190,8 +188,7 @@
         const modeRentBtn = document.getElementById('mode-rent');
         const modeBuyoutBtn = document.getElementById('mode-buyout');
 
-        const thPriceSub = document.querySelector('thead tr th:nth-child(5)');
-        const thPriceMain = document.querySelector('thead tr th:nth-child(6)');
+        const thPriceDisplay = document.getElementById('th-price-display');
 
         // Init
         document.addEventListener('DOMContentLoaded', () => {
@@ -317,9 +314,10 @@
 
             Object.values(groups).forEach(group => {
                 if (group.length === 0) return;
-                const minPrice = Math.min(...group.map(i => priceMode === 'rent' ? i.price_effective_rent : i.price_effective_buyout));
+                if (group.length === 0) return;
+                const minPrice = Math.min(...group.map(i => priceMode === 'rent' ? i.price_effective_rent : i.price_gross));
                 group.forEach(item => {
-                    const price = priceMode === 'rent' ? item.price_effective_rent : item.price_effective_buyout;
+                    const price = priceMode === 'rent' ? item.price_effective_rent : item.price_gross;
                     item.isLowest = (price === minPrice);
                 });
             });
@@ -332,13 +330,11 @@
             if (mode === 'rent') {
                 modeRentBtn.className = "flex-1 py-2 text-xs md:text-sm font-bold rounded-lg transition-all shadow-sm bg-white text-blue-600";
                 modeBuyoutBtn.className = "flex-1 py-2 text-xs md:text-sm font-bold rounded-lg transition-all text-gray-500 hover:text-gray-700";
-                if (thPriceSub) thPriceSub.textContent = "定価 (一括)";
-                if (thPriceMain) thPriceMain.textContent = "実質負担額";
+                if (thPriceDisplay) thPriceDisplay.textContent = "実質負担額";
             } else {
                 modeRentBtn.className = "flex-1 py-2 text-xs md:text-sm font-bold rounded-lg transition-all text-gray-500 hover:text-gray-700";
                 modeBuyoutBtn.className = "flex-1 py-2 text-xs md:text-sm font-bold rounded-lg transition-all shadow-sm bg-white text-blue-600";
-                if (thPriceSub) thPriceSub.textContent = "実質負担額";
-                if (thPriceMain) thPriceMain.textContent = "一括実質";
+                if (thPriceDisplay) thPriceDisplay.textContent = "一括価格";
             }
 
             markLowestPrices(allData);
@@ -356,8 +352,8 @@
 
             // Sort (Always Price Ascending for simplicity in this redesign)
             filtered.sort((a, b) => {
-                const valA = priceMode === 'rent' ? a.price_effective_rent : a.price_effective_buyout;
-                const valB = priceMode === 'rent' ? b.price_effective_rent : b.price_effective_buyout;
+                const valA = priceMode === 'rent' ? a.price_effective_rent : a.price_gross;
+                const valB = priceMode === 'rent' ? b.price_effective_rent : b.price_gross;
                 return valA - valB;
             });
 
@@ -381,23 +377,18 @@
                 const isLowest = item.isLowest;
 
                 // Values
-                let mainPrice, subPrice, mainLabel, subLabel, unitBadge = '';
+                let displayPrice, displayLabel, unitBadge = '';
                 if (priceMode === 'rent') {
-                    mainPrice = item.price_effective_rent;
-                    subPrice = item.price_gross;
-                    mainLabel = '実質負担';
-                    subLabel = '定価 (一括)';
+                    displayPrice = item.price_effective_rent;
+                    displayLabel = '実質負担';
                     if (item.program_exemption > 0) unitBadge = '返却P';
                 } else {
-                    mainPrice = item.price_effective_buyout;
-                    subPrice = item.price_effective_rent;
-                    mainLabel = '一括実質';
-                    subLabel = '実質負担';
-                    if (item.points_awarded > 0) unitBadge = 'Pt還元含';
+                    displayPrice = item.price_gross;
+                    displayLabel = '一括価格';
+                    // if (item.points_awarded > 0) unitBadge = 'Pt還元含'; // Usually for effective buyout, but user asked for Gross. Keeping simple.
                 }
 
-                const fmtMain = mainPrice.toLocaleString();
-                const fmtSub = subPrice.toLocaleString();
+                const fmtPrice = displayPrice.toLocaleString();
 
                 // --- Mobile Card ---
                 const lowestBadge = isLowest ? `<div class="absolute -top-1 -left-1 bg-yellow-400 text-yellow-900 text-[10px] font-black px-2 py-0.5 rounded shadow-sm z-10">最安</div>` : '';
@@ -424,12 +415,9 @@
                             <!-- Price Block -->
                             <div class="mt-2">
                                 <div class="flex items-baseline gap-1">
-                                    <span class="text-xs text-gray-400 font-medium">${mainLabel}</span>
-                                    <span class="text-3xl font-black text-red-600 tracking-tighter">¥${fmtMain}</span>
+                                    <span class="text-xs text-gray-400 font-medium">${displayLabel}</span>
+                                    <span class="text-3xl font-black text-red-600 tracking-tighter">¥${fmtPrice}</span>
                                     ${unitBadge ? `<span class="text-[10px] text-red-500 border border-red-200 px-1 rounded">${unitBadge}</span>` : ''}
-                                </div>
-                                <div class="text-[10px] text-gray-400 mt-0.5">
-                                    ${subLabel}: ¥${fmtSub}
                                 </div>
                             </div>
                         </div>
@@ -451,9 +439,8 @@
                     <td class="p-4 font-bold text-gray-700">${item.model}</td>
                     <td class="p-4 text-gray-500 text-sm">${item.storage}</td>
                     <td class="p-4"><img src="${getCarrierLogoPath(item.carrier)}" alt="${carrierName}" class="h-8 w-24 object-contain"></td>
-                    <td class="p-4 text-right text-sm text-gray-400">¥${fmtSub}</td>
                     <td class="p-4 text-right font-bold text-red-600 text-lg">
-                        ¥${fmtMain}
+                        ¥${fmtPrice}
                         ${unitBadge ? `<br><span class="text-[10px] font-normal text-gray-400">${unitBadge}</span>` : ''}
                     </td>
                     <td class="p-4 text-center">
