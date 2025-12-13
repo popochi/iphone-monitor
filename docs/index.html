@@ -105,7 +105,7 @@
 
                 <!-- Storage Chips -->
                 <div class="space-y-1">
-                    <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">容量</h2>
+                    <h2 class="text-xs font-bold text-gray-400 uppercase tracking-wider ml-1">ストレージ容量</h2>
                     <div class="flex overflow-x-auto gap-2 pb-2 no-scrollbar" id="filter-storage-container">
                         <!-- Populated by JS -->
                     </div>
@@ -229,14 +229,14 @@
             modelContainer.innerHTML = '';
             models.forEach(m => {
                 const btn = document.createElement('button');
-                btn.textContent = (m === 'All') ? '全機種' : m.replace('iPhone ', '');
+                btn.textContent = (m === 'All') ? '全て' : m.replace('iPhone ', '');
                 btn.className = `whitespace-nowrap px-4 py-1.5 rounded-full text-sm font-bold transition-all border ${m === selectedModel
                     ? 'bg-gray-900 text-white border-gray-900 shadow-md'
                     : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
                     }`;
                 btn.onclick = () => {
                     selectedModel = m;
-                    updateChipStyles(modelContainer, m, '全機種');
+                    updateChipStyles(modelContainer, m, '全て');
                     render();
                 };
                 modelContainer.appendChild(btn);
@@ -254,14 +254,14 @@
             storageContainer.innerHTML = '';
             storages.forEach(s => {
                 const btn = document.createElement('button');
-                btn.textContent = (s === 'All') ? '全容量' : s;
+                btn.textContent = (s === 'All') ? '全て' : s;
                 btn.className = `whitespace-nowrap px-4 py-1.5 rounded-full text-sm font-bold transition-all border ${s === selectedStorage
                     ? 'bg-gray-900 text-white border-gray-900 shadow-md'
                     : 'bg-white text-gray-600 border-gray-200 hover:bg-gray-50'
                     }`;
                 btn.onclick = () => {
                     selectedStorage = s;
-                    updateChipStyles(storageContainer, s, '全容量');
+                    updateChipStyles(storageContainer, s, '全て');
                     render();
                 };
                 storageContainer.appendChild(btn);
