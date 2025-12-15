@@ -1,5 +1,5 @@
 {
-  "updated_at": "2025-12-14 01:27",
+  "updated_at": "2025-12-15 01:24",
   "items": [
     {
       "carrier": "Rakuten",
@@ -634,19 +634,6 @@
     },
     {
       "carrier": "ahamo",
-      "model": "iPhone 16 Pro",
-      "storage": "128GB",
-      "price_gross": 192830,
-      "discount_official": 0,
-      "program_exemption": 96360,
-      "points_awarded": 0,
-      "price_effective_rent": 96470,
-      "price_effective_buyout": 192830,
-      "variants": [],
-      "url": "https://ahamo.com/products/iphone/"
-    },
-    {
-      "carrier": "ahamo",
       "model": "iPhone 16 Pro Max",
       "storage": "128GB",
       "price_gross": 236940,
@@ -668,19 +655,6 @@
       "points_awarded": 0,
       "price_effective_rent": 33,
       "price_effective_buyout": 89265,
-      "variants": [],
-      "url": "https://ahamo.com/products/iphone/"
-    },
-    {
-      "carrier": "ahamo",
-      "model": "iPhone 16 Plus",
-      "storage": "128GB",
-      "price_gross": 190080,
-      "discount_official": 0,
-      "program_exemption": 95040,
-      "points_awarded": 0,
-      "price_effective_rent": 95040,
-      "price_effective_buyout": 190080,
       "variants": [],
       "url": "https://ahamo.com/products/iphone/"
     },
