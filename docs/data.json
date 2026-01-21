@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-20 01:24",
+  "updated_at": "2026-01-21 01:27",
   "items": [
     {
       "carrier": "Rakuten",
@@ -15,7 +15,7 @@
       "variants": [
         {
           "color": "コズミックオレンジ",
-          "stock_text": "在庫ありお届けまで最短3日※1",
+          "stock_text": "在庫あり注文時期によってはお届けに2週間",
           "stock_available": true
         }
       ]
@@ -53,8 +53,8 @@
       "variants": [
         {
           "color": "コズミックオレンジ",
-          "stock_text": "入荷待ちお届け時期未定",
-          "stock_available": false
+          "stock_text": "在庫あり注文時期によってはお届けに2週間",
+          "stock_available": true
         }
       ]
     },
@@ -72,8 +72,8 @@
       "variants": [
         {
           "color": "コズミックオレンジ",
-          "stock_text": "入荷待ちお届け時期未定",
-          "stock_available": false
+          "stock_text": "在庫あり注文時期によってはお届けに2週間",
+          "stock_available": true
         }
       ]
     },
@@ -110,7 +110,7 @@
       "variants": [
         {
           "color": "コズミックオレンジ",
-          "stock_text": "在庫あり注文時期によってはお届けに2週間",
+          "stock_text": "在庫ありお届けまで最短3日※1",
           "stock_available": true
         }
       ]
@@ -129,7 +129,7 @@
       "variants": [
         {
           "color": "コズミックオレンジ",
-          "stock_text": "在庫ありお届けまで最短3日※1",
+          "stock_text": "在庫あり注文時期によってはお届けに2週間",
           "stock_available": true
         }
       ]
@@ -205,7 +205,7 @@
       "variants": [
         {
           "color": "ブラック",
-          "stock_text": "在庫あり注文時期によってはお届けに2週間",
+          "stock_text": "在庫ありお届けまで最短3日※1",
           "stock_available": true
         }
       ]
@@ -675,12 +675,12 @@
       "carrier": "UQ mobile",
       "model": "iPhone 16",
       "storage": "128GB",
-      "price_gross": 22000,
+      "price_gross": 145400,
       "discount_official": 22000,
       "program_exemption": 0,
       "points_awarded": 0,
-      "price_effective_rent": 0,
-      "price_effective_buyout": 0,
+      "price_effective_rent": 123400,
+      "price_effective_buyout": 123400,
       "variants": [],
       "url": "https://www.uqwimax.jp/mobile/iphone/16/"
     },
