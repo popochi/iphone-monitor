@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-01-29 01:47",
+  "updated_at": "2026-01-30 01:49",
   "items": [
     {
       "carrier": "Rakuten",
@@ -186,44 +186,6 @@
       "variants": [
         {
           "color": "スカイブルー",
-          "stock_text": "在庫ありお届けまで最短3日※1",
-          "stock_available": true
-        }
-      ]
-    },
-    {
-      "carrier": "Rakuten",
-      "model": "iPhone 17",
-      "storage": "256GB",
-      "price_gross": 146800,
-      "price_effective_rent": 73392,
-      "price_effective_buyout": 146800,
-      "url": "https://network.mobile.rakuten.co.jp/product/iphone/fee/",
-      "discount_official": 0,
-      "points_awarded": 0,
-      "program_exemption": 73408,
-      "variants": [
-        {
-          "color": "ブラック",
-          "stock_text": "在庫ありお届けまで最短3日※1",
-          "stock_available": true
-        }
-      ]
-    },
-    {
-      "carrier": "Rakuten",
-      "model": "iPhone 17",
-      "storage": "512GB",
-      "price_gross": 195800,
-      "price_effective_rent": 97896,
-      "price_effective_buyout": 195800,
-      "url": "https://network.mobile.rakuten.co.jp/product/iphone/fee/",
-      "discount_official": 0,
-      "points_awarded": 0,
-      "program_exemption": 97904,
-      "variants": [
-        {
-          "color": "ブラック",
           "stock_text": "在庫ありお届けまで最短3日※1",
           "stock_available": true
         }
